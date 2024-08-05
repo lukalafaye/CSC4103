@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node {
+  struct node* next;
+  char element[256];
+};
+
+int string_length(const char* string) {
+  char c = string[0];
+  int count = 0;
+  while (c != '\0') {
+    count++;
+    c=string[count];
+    //printf("char: %c\n", c);
+  }
+  
+  return count;
+}
+
+struct node* create(char* s) {
+  struct node* n = malloc(sizeof(struct node));
+  (*n).next = NULL;
+  int length = string_length(s);
+  strncpy((*n).element, s, length);
+  return n;
+}
+
+void display(struct node* noeud) {
+  struct node* current = noeud;
+  while (current != NULL) {
+    printf("%s -> ", current->element);
+    current = current->next;
+  }
+  printf("NULL\n");
+}
+
+struct node* insert(struct node* list, char* str) {
+  struct node* new_node = create(str);
+  if (list->next == NULL) {
+    printf("ok\n");
+    return new_node;
+  } else {
+    new_node->next = list;
+    return new_node;
+  }
+}
+
+	    
+int main() {
+  printf("OK\n");
+  create("poh \n");
+
+  struct node *n1 = create("bonjour");
+  struct node *n2 = create("monde");
+  n1->next = n2;
+  printf("%s, %s, %s\n", n1->element, n2->element, n1->next->element);
+  display(n1);
+
+  struct node *empty = create("osef");
+  empty = insert(empty, "ccc");
+  display(empty);
+  empty = insert(empty, "bbb");
+  empty = insert(empty, "aaa");
+  display(empty);
+}

@@ -1,0 +1,12 @@
+CFLAGS=-Wall -Werror
+
+all: tab
+
+tab: tab.o
+	gcc -o tab tab.o
+
+tab.o: tab.c tab.h
+	gcc -c tab.c $(CFLAGS)
+
+clean:
+	rm tab *.o
